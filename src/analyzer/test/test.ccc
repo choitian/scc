@@ -1,0 +1,9 @@
+int printf ( const char * format, ... );
+int fun(int i)
+{
+	printf("%d\n",i);
+}
+int maim()
+{
+  
+}

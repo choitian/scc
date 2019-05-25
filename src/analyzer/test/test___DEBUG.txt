@@ -1,0 +1,268 @@
+SHIFT: int
+REDUCE TO: type_specifier
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers
+SHIFT: printf
+REDUCE TO: direct_declarator
+SHIFT: (
+SHIFT: const
+REDUCE TO: type_qualifier
+SHIFT: char
+REDUCE TO: type_specifier
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers
+SHIFT: *
+REDUCE TO: POINTER_DEF
+REDUCE TO: pointer
+SHIFT: format
+REDUCE TO: direct_declarator
+REDUCE TO: declarator__
+REDUCE TO: declarator
+REDUCE TO: parameter_declaration
+REDUCE TO: parameter_list
+SHIFT: ,
+SHIFT: ...
+REDUCE TO: parameter_type_list
+SHIFT: )
+REDUCE TO: ARRAY_FUNCTION_DEF
+REDUCE TO: direct_declarator
+REDUCE TO: declarator__
+REDUCE TO: declarator
+REDUCE TO: init_declarator
+REDUCE TO: init_declarator_list
+REDUCE TO: REGISTER_TYPE_DEF_NAME
+SHIFT: ;
+REDUCE TO: declaration
+REDUCE TO: external_declaration
+REDUCE TO: translation_unit
+SHIFT: int
+REDUCE TO: type_specifier
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers
+SHIFT: fun
+REDUCE TO: direct_declarator
+SHIFT: (
+SHIFT: int
+REDUCE TO: type_specifier
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers
+SHIFT: i
+REDUCE TO: direct_declarator
+REDUCE TO: declarator__
+REDUCE TO: declarator
+REDUCE TO: parameter_declaration
+REDUCE TO: parameter_list
+REDUCE TO: parameter_type_list
+SHIFT: )
+REDUCE TO: ARRAY_FUNCTION_DEF
+REDUCE TO: direct_declarator
+REDUCE TO: declarator__
+REDUCE TO: declarator
+REDUCE TO: FUNCTION_ENTER_SCOPE
+SHIFT: {
+SHIFT: printf
+REDUCE TO: primary_expression
+REDUCE TO: postfix_expression
+SHIFT: (
+SHIFT: "%d\n"
+REDUCE TO: primary_expression
+REDUCE TO: postfix_expression
+REDUCE TO: unary_expression
+REDUCE TO: cast_expression
+REDUCE TO: multiplicative_expression
+REDUCE TO: additive_expression
+REDUCE TO: shift_expression
+REDUCE TO: relational_expression
+REDUCE TO: equality_expression
+REDUCE TO: AND_expression
+REDUCE TO: exclusive_OR_expression
+REDUCE TO: inclusive_OR_expression
+REDUCE TO: logical_AND_expression
+REDUCE TO: logical_OR_expression
+REDUCE TO: conditional_expression
+REDUCE TO: assignment_expression
+REDUCE TO: argument_expression_list
+SHIFT: ,
+SHIFT: i
+REDUCE TO: primary_expression
+REDUCE TO: postfix_expression
+REDUCE TO: unary_expression
+REDUCE TO: cast_expression
+REDUCE TO: multiplicative_expression
+REDUCE TO: additive_expression
+REDUCE TO: shift_expression
+REDUCE TO: relational_expression
+REDUCE TO: equality_expression
+REDUCE TO: AND_expression
+REDUCE TO: exclusive_OR_expression
+REDUCE TO: inclusive_OR_expression
+REDUCE TO: logical_AND_expression
+REDUCE TO: logical_OR_expression
+REDUCE TO: conditional_expression
+REDUCE TO: assignment_expression
+REDUCE TO: argument_expression_list
+SHIFT: )
+REDUCE TO: postfix_expression
+REDUCE TO: unary_expression
+REDUCE TO: cast_expression
+REDUCE TO: multiplicative_expression
+REDUCE TO: additive_expression
+REDUCE TO: shift_expression
+REDUCE TO: relational_expression
+REDUCE TO: equality_expression
+REDUCE TO: AND_expression
+REDUCE TO: exclusive_OR_expression
+REDUCE TO: inclusive_OR_expression
+REDUCE TO: logical_AND_expression
+REDUCE TO: logical_OR_expression
+REDUCE TO: conditional_expression
+REDUCE TO: assignment_expression
+REDUCE TO: expression
+SHIFT: ;
+REDUCE TO: expression_statement
+REDUCE TO: statement
+REDUCE TO: statement_list
+REDUCE TO: EXIT_SCOPE
+SHIFT: }
+REDUCE TO: compound_statement
+REDUCE TO: function_definition
+REDUCE TO: external_declaration
+REDUCE TO: translation_unit
+SHIFT: int
+REDUCE TO: type_specifier
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers
+SHIFT: maim
+REDUCE TO: direct_declarator
+SHIFT: (
+SHIFT: )
+REDUCE TO: ARRAY_FUNCTION_DEF
+REDUCE TO: direct_declarator
+REDUCE TO: declarator__
+REDUCE TO: declarator
+REDUCE TO: FUNCTION_ENTER_SCOPE
+SHIFT: {
+SHIFT: int
+REDUCE TO: type_specifier
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers
+SHIFT: i
+REDUCE TO: direct_declarator
+REDUCE TO: declarator__
+REDUCE TO: declarator
+REDUCE TO: init_declarator
+REDUCE TO: init_declarator_list
+REDUCE TO: REGISTER_TYPE_DEF_NAME
+SHIFT: ;
+REDUCE TO: declaration
+REDUCE TO: declaration_list
+SHIFT: int
+REDUCE TO: type_specifier
+REDUCE TO: declaration_specifiers__
+REDUCE TO: declaration_specifiers
+SHIFT: f
+REDUCE TO: direct_declarator
+REDUCE TO: declarator__
+REDUCE TO: declarator
+REDUCE TO: init_declarator
+REDUCE TO: init_declarator_list
+REDUCE TO: REGISTER_TYPE_DEF_NAME
+SHIFT: ;
+REDUCE TO: declaration
+REDUCE TO: declaration_list
+SHIFT: fun
+REDUCE TO: primary_expression
+REDUCE TO: postfix_expression
+SHIFT: (
+SHIFT: 1
+REDUCE TO: constant
+REDUCE TO: primary_expression
+REDUCE TO: postfix_expression
+REDUCE TO: unary_expression
+REDUCE TO: cast_expression
+REDUCE TO: multiplicative_expression
+REDUCE TO: additive_expression
+REDUCE TO: shift_expression
+REDUCE TO: relational_expression
+REDUCE TO: equality_expression
+REDUCE TO: AND_expression
+REDUCE TO: exclusive_OR_expression
+REDUCE TO: inclusive_OR_expression
+REDUCE TO: logical_AND_expression
+REDUCE TO: logical_OR_expression
+REDUCE TO: conditional_expression
+REDUCE TO: assignment_expression
+REDUCE TO: argument_expression_list
+SHIFT: )
+REDUCE TO: postfix_expression
+REDUCE TO: unary_expression
+REDUCE TO: cast_expression
+REDUCE TO: multiplicative_expression
+REDUCE TO: additive_expression
+REDUCE TO: shift_expression
+REDUCE TO: relational_expression
+REDUCE TO: equality_expression
+REDUCE TO: AND_expression
+REDUCE TO: exclusive_OR_expression
+REDUCE TO: inclusive_OR_expression
+REDUCE TO: logical_AND_expression
+REDUCE TO: logical_OR_expression
+REDUCE TO: conditional_expression
+REDUCE TO: assignment_expression
+REDUCE TO: expression
+SHIFT: ;
+REDUCE TO: expression_statement
+REDUCE TO: statement
+REDUCE TO: statement_list
+SHIFT: fun
+REDUCE TO: primary_expression
+REDUCE TO: postfix_expression
+SHIFT: (
+SHIFT: 2
+REDUCE TO: constant
+REDUCE TO: primary_expression
+REDUCE TO: postfix_expression
+REDUCE TO: unary_expression
+REDUCE TO: cast_expression
+REDUCE TO: multiplicative_expression
+REDUCE TO: additive_expression
+REDUCE TO: shift_expression
+REDUCE TO: relational_expression
+REDUCE TO: equality_expression
+REDUCE TO: AND_expression
+REDUCE TO: exclusive_OR_expression
+REDUCE TO: inclusive_OR_expression
+REDUCE TO: logical_AND_expression
+REDUCE TO: logical_OR_expression
+REDUCE TO: conditional_expression
+REDUCE TO: assignment_expression
+REDUCE TO: argument_expression_list
+SHIFT: )
+REDUCE TO: postfix_expression
+REDUCE TO: unary_expression
+REDUCE TO: cast_expression
+REDUCE TO: multiplicative_expression
+REDUCE TO: additive_expression
+REDUCE TO: shift_expression
+REDUCE TO: relational_expression
+REDUCE TO: equality_expression
+REDUCE TO: AND_expression
+REDUCE TO: exclusive_OR_expression
+REDUCE TO: inclusive_OR_expression
+REDUCE TO: logical_AND_expression
+REDUCE TO: logical_OR_expression
+REDUCE TO: conditional_expression
+REDUCE TO: assignment_expression
+REDUCE TO: expression
+SHIFT: ;
+REDUCE TO: expression_statement
+REDUCE TO: statement
+REDUCE TO: statement_list
+REDUCE TO: EXIT_SCOPE
+SHIFT: }
+REDUCE TO: compound_statement
+REDUCE TO: function_definition
+REDUCE TO: external_declaration
+REDUCE TO: translation_unit
+REDUCE TO: file

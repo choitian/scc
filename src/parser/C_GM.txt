@@ -1,0 +1,448 @@
+file
+:	translation_unit	{decl_TRANSLATION_UNIT}
+;
+
+translation_unit
+: external_declaration	{SKIP }
+| translation_unit external_declaration	{LIST }
+;
+
+external_declaration
+: function_definition	{SKIP }
+| declaration			{SKIP }
+;
+
+function_definition
+: declaration_specifiers declarator FUNCTION_ENTER_SCOPE compound_statement		{decl_FUNCTION_DEFINITION }
+;
+
+declaration
+: declaration_specifiers SEMICOLON							{decl_DECLARATION_partly}
+| declaration_specifiers init_declarator_list REGISTER_TYPE_DEF_NAME SEMICOLON		{decl_DECLARATION}
+;
+
+declaration_list
+: declaration	{SKIP }
+| declaration_list declaration	{LIST }
+;
+
+declaration_specifiers
+: declaration_specifiers__		{decl_DECLARATION_TYPE}
+;
+
+declaration_specifiers__
+: storage_class_specifier	{SKIP }
+| storage_class_specifier declaration_specifiers__	{LIST }
+| type_specifier	{SKIP }
+| type_specifier declaration_specifiers__	{LIST }
+| type_qualifier	{SKIP }
+| type_qualifier declaration_specifiers__	{LIST }
+;
+
+storage_class_specifier
+: auto		{SKIP }
+| register	{SKIP }
+| static	{SKIP }
+| extern	{SKIP }
+| typedef	{SKIP }
+;
+
+type_specifier
+: void	{SKIP }
+| char	{SKIP }
+| short	{SKIP }
+| int	{SKIP }
+| long	{SKIP }
+| float {SKIP }
+| double {SKIP }
+| signed {SKIP }
+| unsigned {SKIP }
+| struct_or_union_specifier {SKIP }
+| enum_specifier {SKIP }
+| typedef_name	{SKIP }
+;
+
+type_qualifier
+: const		{SKIP }
+| volatile	{SKIP }
+;
+
+struct_or_union_specifier
+: struct ID__OPT__ LBRACE struct_declaration_list RBRACE	{decl_TYPE_STRUCT}
+| struct ID		{decl_TYPE_STRUCT_partly}
+| union ID__OPT__ LBRACE struct_declaration_list RBRACE	{decl_TYPE_UNION}
+| union ID		{decl_TYPE_UNION_partly}												
+;
+
+struct_declaration_list
+: struct_declaration	{SKIP }
+| struct_declaration_list struct_declaration  {LIST }
+;
+
+init_declarator_list
+: init_declarator	{SKIP }
+| init_declarator_list COMMA init_declarator {LIST }
+;
+
+init_declarator
+: declarator												{decl_INIT_DECLARATOR_partly }
+| declarator ASSIGN initializer								{decl_INIT_DECLARATOR}
+;
+
+specifier_qualifier_list
+: specifier_qualifier_list__	{decl_DECLARATION_TYPE}
+;
+
+specifier_qualifier_list__
+: type_specifier {SKIP }
+| type_specifier specifier_qualifier_list__	{LIST }
+| type_qualifier {SKIP }
+| type_qualifier specifier_qualifier_list__	{LIST }
+;
+
+struct_declaration
+: specifier_qualifier_list struct_declarator_list SEMICOLON		{decl_STRUCT_DECLARATION }
+| specifier_qualifier_list SEMICOLON		{decl_STRUCT_DECLARATION_partly }
+;
+
+struct_declarator_list
+: struct_declarator	{SKIP }
+| struct_declarator_list COMMA struct_declarator	{LIST }
+;
+
+struct_declarator
+: declarator					{decl_STRUCT_DECLARATOR}
+| COLON constant_expression		{decl_STRUCT_DECLARATOR_field_partly}
+| declarator COLON constant_expression {decl_STRUCT_DECLARATOR_field }
+;
+
+enum_specifier
+: enum ID__OPT__ LBRACE enumerator_list RBRACE				{decl_TYPE_ENUM}
+| enum ID__OPT__ LBRACE enumerator_list COMMA RBRACE		{decl_TYPE_ENUM}
+| enum ID													{decl_TYPE_ENUM_partly}
+;
+
+enumerator_list
+: enumerator	{SKIP }
+| enumerator_list COMMA enumerator	{LIST}
+;
+
+enumerator
+: ID	{decl_ENUMERATOR}
+| ID ASSIGN constant_expression		{decl_ENUMERATOR_initializer}
+;
+
+declarator
+: declarator__			{decl_DECLARATION_DECLARATOR}
+;
+
+declarator__
+: direct_declarator	{SKIP }
+| pointer direct_declarator	{LIST }
+| calling_convention pointer direct_declarator	{LIST_triple }
+;
+
+//calling_convention must not followed by nest declarator,so if the declarator maybe nest do not before it.
+calling_convention
+: cdecl		{SKIP }
+| stdcall	{SKIP }
+;
+
+direct_declarator
+: ID		{SKIP }
+| calling_convention ID	{LIST }
+| LPAREN declarator__ RPAREN						{ REUSE_2nd }
+| direct_declarator ARRAY_FUNCTION_DEF				{ LIST_reverse }
+;
+
+ARRAY_FUNCTION_DEF
+: LBRACKET RBRACKET							{decl_DECLARATOR_ARRAY_partly  }
+| LBRACKET constant_expression RBRACKET		{decl_DECLARATOR_ARRAY  }
+| LPAREN RPAREN							{decl_DECLARATOR_FUNCTION_partly  }
+| LPAREN parameter_type_list RPAREN		{decl_DECLARATOR_FUNCTION	}
+;
+
+pointer
+: POINTER_DEF	{SKIP }
+| POINTER_DEF pointer		{LIST }
+;
+
+POINTER_DEF
+: MUL						{decl_DECLARATOR_POINTER  }
+| MUL type_qualifier_list	{decl_DECLARATOR_POINTER_qualified }
+;
+
+type_qualifier_list
+: type_qualifier	{SKIP }	
+| type_qualifier_list type_qualifier	{LIST }
+;
+
+parameter_type_list
+: parameter_list	{SKIP }	
+| parameter_list COMMA ELLIPSE	{LIST }
+;
+
+parameter_list
+: parameter_declaration	{SKIP }	
+| parameter_list COMMA parameter_declaration	{LIST }
+;
+
+parameter_declaration
+: declaration_specifiers declarator	{ decl_PARAMETER_DECLARATION}
+| declaration_specifiers			{ decl_PARAMETER_DECLARATION_partly  }
+| declaration_specifiers abstract_declarator	{ decl_PARAMETER_DECLARATION }
+;
+
+initializer
+: assignment_expression					{decl_INITIALIZER_expression}
+| LBRACE initializer_list RBRACE		{decl_INITIALIZER_compound}
+| LBRACE initializer_list COMMA RBRACE	{decl_INITIALIZER_compound}
+;
+
+initializer_list
+: initializer	{SKIP }	
+| initializer_list COMMA initializer	{LIST }
+;
+
+type_name
+: specifier_qualifier_list	{ decl_TYPE_NAME_DECLARATION_partly}
+| specifier_qualifier_list abstract_declarator { decl_TYPE_NAME_DECLARATION}
+;
+
+abstract_declarator
+: abstract_declarator__		{ decl_DECLARATION_DECLARATOR }
+;
+
+abstract_declarator__
+: pointer	{SKIP }	
+| calling_convention pointer {LIST }
+| direct_abstract_declarator {SKIP }	
+| pointer direct_abstract_declarator	{SKIP }	
+| calling_convention pointer direct_abstract_declarator		{LIST_triple }
+;
+
+direct_abstract_declarator
+: LPAREN abstract_declarator__ RPAREN			{ REUSE_2nd }
+| ARRAY_FUNCTION_DEF	{SKIP }
+| direct_abstract_declarator ARRAY_FUNCTION_DEF		{LIST_reverse}
+;
+//////////////////////////////////
+/////////////statement
+//////////////////////////////////
+statement
+: labeled_statement	{SKIP }
+| expression_statement	{SKIP }
+| ENTER_SCOPE compound_statement		{ REUSE_2nd }
+| selection_statement	{SKIP }
+| iteration_statement	{SKIP }
+| jump_statement		{SKIP }
+;
+
+labeled_statement
+: ID COLON statement						{stmt_LABEL}
+| case constant_expression COLON statement	{stmt_CASE}
+| default COLON statement					{stmt_DEFAULT}
+;
+
+expression_statement
+: SEMICOLON								{stmt_EXPRESSION_empty }
+| expression SEMICOLON					{stmt_EXPRESSION}
+;
+
+compound_statement
+: LBRACE EXIT_SCOPE RBRACE						{stmt_COMPOUND_empty }
+| LBRACE declaration_list EXIT_SCOPE RBRACE		{stmt_COMPOUND_decl}
+| LBRACE statement_list EXIT_SCOPE RBRACE			{stmt_COMPOUND_stmt }
+| LBRACE declaration_list statement_list EXIT_SCOPE RBRACE	{stmt_COMPOUND }
+;
+
+statement_list
+: statement	{SKIP }
+| statement_list statement	{LIST }
+;
+
+selection_statement
+: if LPAREN expression RPAREN statement					{stmt_IF}
+| if LPAREN expression RPAREN statement else statement  {stmt_IF_else}
+| switch LPAREN expression RPAREN statement		{stmt_SWITCH}
+;
+
+iteration_statement
+: while LPAREN expression RPAREN statement		{stmt_WHILE}
+| do statement while LPAREN expression RPAREN SEMICOLON		{stmt_DO_WHILE}
+| for LPAREN expression__OPT__ SEMICOLON expression__OPT__ SEMICOLON expression__OPT__ RPAREN statement
+{
+	stmt_FOR
+}
+;
+
+jump_statement
+: goto ID SEMICOLON				{stmt_GOTO}
+| continue SEMICOLON			{stmt_CONTINUE }
+| break SEMICOLON				{stmt_BREAK }
+| return SEMICOLON				{stmt_RETURN_void}
+| return expression SEMICOLON	{stmt_RETURN}
+;
+
+//////////////////////////////////
+/////////////////expression
+/////////////////////////////////
+expression
+: assignment_expression		{SKIP }
+| expression COMMA assignment_expression					{exp_COMMA} 
+;
+
+assignment_expression
+: conditional_expression									{SKIP }
+| unary_expression ASSIGN assignment_expression				{exp_ASSIGN} 
+| unary_expression MUL_ASSIGN assignment_expression			{exp_MUL_ASSIGN} 
+| unary_expression DIV_ASSIGN assignment_expression			{exp_DIV_ASSIGN} 
+| unary_expression MOD_ASSIGN assignment_expression			{exp_MOD_ASSIGN} 
+| unary_expression ADD_ASSIGN assignment_expression			{exp_ADD_ASSIGN} 
+| unary_expression SUB_ASSIGN assignment_expression			{exp_SUB_ASSIGN} 
+| unary_expression LSHIFT_ASSIGN assignment_expression		{exp_LSHIFT_ASSIGN} 
+| unary_expression RSHIFT_ASSIGN assignment_expression		{exp_RSHIFT_ASSIGN} 
+| unary_expression BITAND_ASSIGN assignment_expression		{exp_BITAND_ASSIGN} 
+| unary_expression BITXOR_ASSIGN assignment_expression		{exp_BITXOR_ASSIGN} 
+| unary_expression BITOR_ASSIGN assignment_expression		{exp_BITOR_ASSIGN} 
+;
+
+conditional_expression
+: logical_OR_expression		{SKIP }
+| logical_OR_expression QUESTION expression COLON conditional_expression	{exp_CONDI} 
+;
+
+constant_expression
+: conditional_expression	{SKIP }
+;
+
+logical_OR_expression
+: logical_AND_expression	{SKIP }
+| logical_OR_expression OR logical_AND_expression	{exp_OR} 
+;
+
+logical_AND_expression
+: inclusive_OR_expression	{SKIP }
+| logical_AND_expression AND inclusive_OR_expression	{exp_AND} 
+;
+
+inclusive_OR_expression
+: exclusive_OR_expression	{SKIP }
+| inclusive_OR_expression BITOR exclusive_OR_expression		{exp_BITOR} 
+;
+
+exclusive_OR_expression
+: AND_expression	{SKIP }
+| exclusive_OR_expression BITXOR AND_expression			{exp_BITXOR} 
+;
+
+AND_expression
+: equality_expression	{SKIP }
+| AND_expression BITAND equality_expression				{exp_BITAND} 
+;
+
+equality_expression
+: relational_expression	{SKIP }
+| equality_expression EQUAL relational_expression		{exp_EQUAL} 
+| equality_expression UNEQUAL relational_expression		{exp_UNEQUAL} 
+;
+
+relational_expression
+: shift_expression	{SKIP }
+| relational_expression LESS shift_expression		{exp_LESS} 
+| relational_expression GREAT shift_expression		{exp_GREAT} 
+| relational_expression LESS_EQ shift_expression	{exp_LESS_EQ} 
+| relational_expression GREAT_EQ shift_expression	{exp_GREAT_EQ} 
+;
+
+shift_expression
+: additive_expression	{SKIP }
+| shift_expression RSHIFT additive_expression		{exp_RSHIFT} 
+| shift_expression LSHIFT additive_expression		{exp_LSHIFT} 
+;
+
+additive_expression
+: multiplicative_expression	{SKIP }
+| additive_expression ADD multiplicative_expression		{exp_ADD} 
+| additive_expression SUB multiplicative_expression		{exp_SUB} 
+;
+
+multiplicative_expression
+: cast_expression	{SKIP }
+| multiplicative_expression MUL cast_expression		{exp_MUL} 
+| multiplicative_expression DIV cast_expression		{exp_DIV} 
+| multiplicative_expression MOD cast_expression		{exp_MOD} 
+;
+
+cast_expression
+: unary_expression	{SKIP }
+| LPAREN type_name RPAREN cast_expression	{exp_CAST} 
+;
+
+unary_expression
+: postfix_expression	{SKIP }
+| INC unary_expression		{exp_PRE_INC} 
+| DEC unary_expression		{exp_PRE_DEC} 
+| BITAND cast_expression	{exp_ADDR} 
+| MUL cast_expression		{exp_DEREF} 
+| ADD cast_expression		{exp_POS} 
+| SUB cast_expression		{exp_NEG} 
+| COMP cast_expression		{exp_COMP} 
+| NOT cast_expression		{exp_NOT} 
+| sizeof unary_expression	{ exp_SIZE_OF_OBJ } 
+| sizeof LPAREN type_name RPAREN	{ exp_SIZE_OF_TYPE } 
+;
+
+postfix_expression
+: primary_expression	{SKIP }
+| postfix_expression LBRACKET expression RBRACKET				{exp_INDEX}
+| postfix_expression LPAREN RPAREN								{exp_CALL}
+| postfix_expression LPAREN argument_expression_list RPAREN		{exp_CALL}
+| postfix_expression DOT ID				{exp_OBJ_MBSL}
+| postfix_expression ARROW ID			{exp_PTR_MBSL}
+| postfix_expression DEC		{ exp_POST_DEC }
+| postfix_expression INC		{ exp_POST_INC }
+;
+
+primary_expression
+: ID	{exp_ID }
+| constant	{SKIP }
+| STRING	{exp_STRING }
+| LPAREN expression RPAREN		{ REUSE_2nd }
+;
+
+argument_expression_list
+: assignment_expression		{SKIP }
+| argument_expression_list COMMA assignment_expression	{LIST }
+;
+
+constant
+: INTEGER	{exp_CONSTANT_INTEGER }
+| CHARACTER		{exp_CONSTANT_CHARACTER }
+| FLOATING	{exp_CONSTANT_FLOATING }
+//| ENUM_CONSTANT
+;
+
+//specially!!!
+expression__OPT__
+: expression	{SKIP }
+| __NULL__		{__NULL__ }
+;
+
+ID__OPT__
+: ID	{SKIP }
+| __NULL__		{__NULL__ }
+;
+
+REGISTER_TYPE_DEF_NAME
+: __NULL__		{REGISTER_TYPE_DEF_NAME}
+;
+FUNCTION_ENTER_SCOPE
+: __NULL__		{FUNCTION_ENTER_SCOPE }
+;
+ENTER_SCOPE
+: __NULL__		{ENTER_SCOPE }
+;
+EXIT_SCOPE
+: __NULL__		{EXIT_SCOPE }
+;

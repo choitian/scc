@@ -1,0 +1,115 @@
+D			[0-9]
+L			[a-zA-Z_]
+H			[a-fA-F0-9]
+E			[Ee][+-]?{D}+
+FS			(f|F|l|L)
+IS			(u|U|l|L)*
+
+%%
+
+"__cdecl"			{ "cdecl" }
+"__stdcall"			{ "stdcall" }
+"_cdecl"			{ "cdecl" }
+"_stdcall"			{ "stdcall" }
+"cdecl"				{ "cdecl" }
+"stdcall"			{ "stdcall" }
+"auto"			{ "auto" }
+"break"			{ "break" }
+"case"			{ "case" }
+"char"			{ "char" }
+"const"			{ "const" }
+"continue"		{ "continue" }
+"default"		{ "default" }
+"do"			{ "do" }
+"double"		{ "double" }
+"else"			{ "else" }
+"enum"			{ "enum" }
+"extern"		{ "extern" }
+"float"			{ "float" }
+"for"			{ "for" }
+"goto"			{ "goto" }
+"if"			{ "if" }
+"int"			{ "int" }
+"long"			{ "long" }
+"register"		{ "register" }
+"return"		{ "return" }
+"short"			{ "short" }
+"signed"		{ "signed" }
+"sizeof"		{ "sizeof" }
+"static"		{ "static" }
+"struct"		{ "struct" }
+"switch"		{ "switch" }
+"typedef"		{ "typedef" }
+"union"			{ "union" }
+"unsigned"		{ "unsigned" }
+"void"			{ "void" }
+"volatile"		{ "volatile" }
+"while"			{ "while" }
+
+{L}({L}|{D})*		{ "ID" }
+
+0[xX]{H}+{IS}?		{ "INTEGER" }
+0{D}+{IS}?		{ "INTEGER" }
+{D}+{IS}?		{ "INTEGER" }
+L?'(\\.|[^\\'])+'	{ "CHARACTER" }
+
+{D}+{E}{FS}?		{ "FLOAT_POINTER" }
+{D}*"."{D}+({E})?{FS}?	{ "FLOATING" }
+{D}+"."{D}*({E})?{FS}?	{ "FLOATING" }
+
+L?\"(\\.|[^\\"])*\"	{ "STRING" }
+
+"..."			{ "ELLIPSE" }
+">>="			{ "RSHIFT_ASSIGN" }
+"<<="			{ "LSHIFT_ASSIGN" }
+"+="			{ "ADD_ASSIGN" }
+"-="			{ "SUB_ASSIGN" }
+"*="			{ "MUL_ASSIGN" }
+"/="			{ "DIV_ASSIGN" }
+"%="			{ "MOD_ASSIGN" }
+"&="			{ "BITAND_ASSIGN" }
+"^="			{ "BITXOR_ASSIGN" }
+"|="			{ "BITOR_ASSIGN" }
+">>"			{ "RSHIFT" }
+"<<"			{ "LSHIFT" }
+"++"			{ "INC" }
+"--"			{ "DEC" }
+"->"			{ "ARROW" }
+"&&"			{ "AND" }
+"||"			{ "OR" }
+"<="			{ "LESS_EQ" }
+">="			{ "GREAT_EQ" }
+"=="			{ "EQUAL" }
+"!="			{ "UNEQUAL" }
+";"			{ "SEMICOLON" }
+"{"			{ "LBRACE" }
+"}"			{ "RBRACE" }
+","			{ "COMMA" }
+":"			{ "COLON" }
+"="			{ "ASSIGN" }
+"("			{ "LPAREN" }
+")"			{ "RPAREN" }
+"["			{ "LBRACKET" }
+"]"			{ "RBRACKET" }
+"."			{ "DOT" }
+"&"			{ "BITAND" }
+"!"			{ "NOT" }
+"~"			{ "COMP" }
+"-"			{ "SUB" }
+"+"			{ "ADD" }
+"*"			{ "MUL" }
+"/"			{ "DIV" }
+"%"			{ "MOD" }
+"<"			{ "LESS" }
+">"			{ "GREAT" }
+"^"			{ "BITXOR" }
+"|"			{ "BITOR" }
+"?"			{ "QUESTION" }
+
+\#.*\n				{ "COMMENT" }
+\/\*(.|\n)*\*\/		{ "MULTILINE_COMMENT" }
+\/\/.*\n			{ "COMMENT" }
+
+\n 				{ "NEWLINE" }
+[ \t\r\v\f]		{ "SKIP" }
+.				{ "SKIP" }

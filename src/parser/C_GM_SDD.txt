@@ -1,0 +1,417 @@
+translation_unit
+: external_declaration	{TU.tree=ED.tree}
+| translation_unit external_declaration {TU.tree=node(TU1.tree,ED.tree)}
+;
+
+external_declaration
+: function_definition
+| declaration
+;
+
+function_definition
+: declaration_specifiers declarator FUNCTION_NEW_SCOPE TYPEDEF_NAME_ON compound_statement		
+;
+
+declaration
+: declaration_specifiers TYPEDEF_NAME_ON SEMICOLON							
+| declaration_specifiers init_declarator_list REGISTER_TYPE_DEF_NAME TYPEDEF_NAME_ON SEMICOLON		
+;
+
+declaration_list
+: declaration
+| declaration_list declaration
+;
+
+declaration_specifiers
+: storage_class_specifier 
+| storage_class_specifier declaration_specifiers
+| type_specifier 
+| type_specifier declaration_specifiers
+| type_qualifier 
+| type_qualifier declaration_specifiers
+;
+
+storage_class_specifier
+: auto
+| register
+| static
+| extern
+| typedef
+;
+
+type_specifier
+: TYPEDEF_NAME_OFF type_specifier__		
+;
+
+type_specifier__
+: void 
+| char 
+| short 
+| int 
+| long 
+| float 
+| double 
+| signed 
+| unsigned 
+| struct_or_union_specifier 
+| enum_specifier 
+| typedef_name 
+;
+
+type_qualifier
+: const 
+| volatile 
+;
+
+struct_or_union_specifier
+: struct ID__OPT__ LBRACE struct_declaration_list RBRACE	
+| struct ID												
+| union ID__OPT__ LBRACE struct_declaration_list RBRACE		
+| union ID			
+;
+
+struct_declaration_list
+: struct_declaration
+| struct_declaration_list struct_declaration 
+;
+
+init_declarator_list
+: init_declarator
+| init_declarator_list COMMA init_declarator 
+;
+
+init_declarator
+: declarator												
+| declarator ASSIGN initializer								
+;
+
+specifier_qualifier_list
+: type_specifier 
+| type_specifier specifier_qualifier_list
+| type_qualifier 
+| type_qualifier specifier_qualifier_list
+;
+
+struct_declaration
+: specifier_qualifier_list struct_declarator_list TYPEDEF_NAME_ON SEMICOLON		
+;
+
+struct_declarator_list
+: struct_declarator
+| struct_declarator_list COMMA struct_declarator 
+;
+
+struct_declarator
+: declarator					
+| COLON constant_expression		
+| declarator COLON constant_expression 
+;
+
+enum_specifier
+: enum ID__OPT__ LBRACE enumerator_list RBRACE				
+| enum ID__OPT__ LBRACE enumerator_list COMMA RBRACE		
+| enum ID													
+;
+
+enumerator_list
+: enumerator
+| enumerator_list COMMA enumerator 
+;
+
+enumerator
+: ID 
+| ID ASSIGN constant_expression		
+;
+
+declarator
+: direct_declarator
+| POINTER_DIRECT_DECLARATOR
+| calling_convention POINTER_DIRECT_DECLARATOR
+;
+
+POINTER_DIRECT_DECLARATOR
+: pointer direct_declarator
+;
+
+//calling_convention must not followed by nest declarator,so if the declarator maybe nest do not before it.
+calling_convention
+: cdecl
+| stdcall
+;
+
+direct_declarator
+: ID
+| calling_convention ID
+| LPAREN declarator RPAREN							
+| direct_declarator ARRAY_FUNCTION_DEF				
+;
+
+ARRAY_FUNCTION_DEF
+: LBRACKET RBRACKET							
+| LBRACKET constant_expression RBRACKET		
+| LPAREN RPAREN							
+| LPAREN parameter_type_list RPAREN		
+;
+
+pointer
+: POINTER_DEF
+| POINTER_DEF pointer
+;
+
+POINTER_DEF
+: MUL						
+| MUL type_qualifier_list	
+;
+
+type_qualifier_list
+: type_qualifier
+| type_qualifier_list type_qualifier
+;
+
+parameter_type_list
+: parameter_list
+| parameter_list COMMA ELLIPSE 
+;
+
+parameter_list
+: parameter_declaration
+| parameter_list COMMA parameter_declaration 
+;
+
+parameter_declaration
+: declaration_specifiers declarator	TYPEDEF_NAME_ON			
+| declaration_specifiers			TYPEDEF_NAME_ON			
+| declaration_specifiers abstract_declarator	TYPEDEF_NAME_ON
+;
+
+initializer
+: assignment_expression					
+| LBRACE initializer_list RBRACE		
+| LBRACE initializer_list COMMA RBRACE	
+;
+
+initializer_list
+: initializer
+| initializer_list COMMA initializer	
+;
+
+type_name
+: specifier_qualifier_list		TYPEDEF_NAME_ON 
+| specifier_qualifier_list abstract_declarator TYPEDEF_NAME_ON 
+;
+
+abstract_declarator
+: pointer 
+| calling_convention pointer 
+| direct_abstract_declarator
+| POINTER_DIRECT_ABSTRACT_DECLARATOR 
+| calling_convention POINTER_DIRECT_ABSTRACT_DECLARATOR 
+;
+
+POINTER_DIRECT_ABSTRACT_DECLARATOR
+: pointer direct_abstract_declarator 
+;
+
+
+direct_abstract_declarator
+: LPAREN abstract_declarator RPAREN			
+| ARRAY_FUNCTION_DEF
+| direct_abstract_declarator ARRAY_FUNCTION_DEF		
+;
+//////////////////////////////////
+/////////////statement
+//////////////////////////////////
+statement
+: labeled_statement
+| expression_statement
+| NEW_SCOPE compound_statement		
+| selection_statement
+| iteration_statement
+| jump_statement
+;
+
+labeled_statement
+: ID COLON statement						
+| case constant_expression COLON statement	
+| default COLON statement					
+;
+
+expression_statement
+: SEMICOLON								
+| expression SEMICOLON					
+;
+
+compound_statement
+: LBRACE EXIT_SCOPE RBRACE						
+| LBRACE declaration_list EXIT_SCOPE RBRACE		
+| LBRACE statement_list EXIT_SCOPE RBRACE			
+| LBRACE declaration_list statement_list EXIT_SCOPE RBRACE	
+;
+
+statement_list
+: statement
+| statement_list statement 
+;
+
+selection_statement
+: if LPAREN expression RPAREN statement					
+| if LPAREN expression RPAREN statement else statement  
+| switch LPAREN expression RPAREN statement		
+;
+
+iteration_statement
+: while LPAREN expression RPAREN statement		
+| do statement while LPAREN expression RPAREN SEMICOLON		
+| for LPAREN expression__OPT__ SEMICOLON expression__OPT__ SEMICOLON expression__OPT__ RPAREN statement
+{
+	FOR 6  4 2 0
+}
+;
+
+jump_statement
+: goto ID SEMICOLON				
+| continue SEMICOLON			
+| break SEMICOLON				
+| return SEMICOLON				
+| return expression SEMICOLON	
+;
+
+//////////////////////////////////
+/////////////////expression
+/////////////////////////////////
+expression
+: assignment_expression
+| expression COMMA assignment_expression					 
+;
+
+assignment_expression
+: conditional_expression
+| unary_expression ASSIGN assignment_expression				 
+| unary_expression MUL_ASSIGN assignment_expression			 
+| unary_expression DIV_ASSIGN assignment_expression			 
+| unary_expression MOD_ASSIGN assignment_expression			 
+| unary_expression ADD_ASSIGN assignment_expression			 
+| unary_expression SUB_ASSIGN assignment_expression			 
+| unary_expression LSHIFT_ASSIGN assignment_expression		 
+| unary_expression RSHIFT_ASSIGN assignment_expression		 
+| unary_expression BITAND_ASSIGN assignment_expression		 
+| unary_expression BITXOR_ASSIGN assignment_expression		 
+| unary_expression BITOR_ASSIGN assignment_expression		 
+;
+
+conditional_expression
+: logical_OR_expression
+| logical_OR_expression QUESTION expression COLON conditional_expression	 
+;
+
+constant_expression
+: conditional_expression
+;
+
+logical_OR_expression
+: logical_AND_expression
+| logical_OR_expression OR logical_AND_expression	 
+;
+
+logical_AND_expression
+: inclusive_OR_expression
+| logical_AND_expression AND inclusive_OR_expression	 
+;
+
+inclusive_OR_expression
+: exclusive_OR_expression
+| inclusive_OR_expression BITOR exclusive_OR_expression		 
+;
+
+exclusive_OR_expression
+: AND_expression
+| exclusive_OR_expression BITXOR AND_expression			 
+;
+
+AND_expression
+: equality_expression
+| AND_expression BITAND equality_expression				 
+;
+
+equality_expression
+: relational_expression
+| equality_expression EQUAL relational_expression		 
+| equality_expression UNEQUAL relational_expression		 
+;
+
+relational_expression
+: shift_expression 
+| relational_expression LESS shift_expression		 
+| relational_expression GREAT shift_expression		 
+| relational_expression LESS_EQ shift_expression	 
+| relational_expression GREAT_EQ shift_expression	 
+;
+
+shift_expression
+: additive_expression
+| shift_expression RSHIFT additive_expression		 
+| shift_expression LSHIFT additive_expression		 
+;
+
+additive_expression
+: multiplicative_expression
+| additive_expression ADD multiplicative_expression		 
+| additive_expression SUB multiplicative_expression		 
+;
+
+multiplicative_expression
+: cast_expression
+| multiplicative_expression MUL cast_expression		 
+| multiplicative_expression DIV cast_expression		 
+| multiplicative_expression MOD cast_expression		 
+;
+
+cast_expression
+: unary_expression
+| LPAREN type_name RPAREN cast_expression	 
+;
+
+unary_expression
+: postfix_expression
+| INC unary_expression		 
+| DEC unary_expression		 
+| BITAND cast_expression	 
+| MUL cast_expression		 
+| ADD cast_expression		 
+| SUB cast_expression		 
+| COMP cast_expression		 
+| NOT cast_expression		 
+| sizeof unary_expression	 
+| sizeof LPAREN type_name RPAREN	 
+;
+
+postfix_expression
+: primary_expression
+| postfix_expression LBRACKET expression RBRACKET				
+| postfix_expression LPAREN RPAREN								
+| postfix_expression LPAREN argument_expression_list RPAREN		
+| postfix_expression DOT ID				
+| postfix_expression POINTER ID			
+| postfix_expression DEC		
+| postfix_expression INC		
+;
+
+primary_expression
+: ID 
+| constant 
+| STRING 
+| LPAREN expression RPAREN		
+| ELLIPSE 
+;
+
+argument_expression_list
+: assignment_expression 
+| argument_expression_list COMMA assignment_expression 
+;
+
+constant
+: INTEGER 
+| CHARACTER 
+| FLOATING 
+| ENUM 
+;
