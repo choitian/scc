@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
 	}else
 	{
 		const char* main_file=__FILE__;
+
 		std::string CurrentDirectory;
 		CurrentDirectory.assign(main_file,strlen(main_file)-8);
 		SCC_MSG("Set CurrentDirectory to %s\n\n",CurrentDirectory.c_str());

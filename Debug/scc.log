@@ -1,0 +1,5 @@
+﻿  register.cpp
+  translate_instruction.cpp
+  syntax_tree_handler_stmt.cpp
+  Generating Code...
+  scc.vcxproj -> C:\Users\nur\source\repos\scc\Debug\scc.exe
