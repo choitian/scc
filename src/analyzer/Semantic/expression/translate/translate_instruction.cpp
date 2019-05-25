@@ -107,7 +107,7 @@ static struct REG* load_to_reg(struct ADDRESS* op)
 }
 static struct REG* upcast(unsigned int result_width,struct ADDRESS* op)
 {
-	struct REG* result_reg;
+	struct REG* result_reg = NULL;
 	std::string asm_code;
 	if(op->type->is_unsigned())
 		asm_code="movzx";
@@ -164,7 +164,7 @@ static struct REG* upcast(unsigned int result_width,struct ADDRESS* op)
 }
 static struct REG* downcast(unsigned int result_width,struct ADDRESS* op)
 {
-	struct REG* result_reg;
+	struct REG* result_reg = NULL;
 	if(op->is_CONST())
 	{
 		result_reg=load_to_reg(op);
@@ -520,7 +520,7 @@ static void CVT_integral_to_floating_st(struct ADDRESS* addr)
 }
 static struct REG* CVT_floating_to_register(struct ADDRESS* addr)
 {
-	struct REG* result_reg;
+	struct REG* result_reg = NULL;
 	if(addr->is_MEM())
 	{
 		result_reg=x86_reg.get_reg();
@@ -809,7 +809,7 @@ void RET::translate()
 }
 static struct REG* load_to_reg_zx(struct ADDRESS* op)
 {
-	struct REG* result_reg;
+	struct REG* result_reg = NULL;
 	std::string asm_code;
 	unsigned int source_width=op->type->size;
 	bool extend_mode=source_width<4;

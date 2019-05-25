@@ -9,10 +9,4 @@ NOP:
 
 (FUN)maim
 :L_2:
-param 1:
-t_1 = call fun,4:
-L_3:
-param 2:
-t_2 = call fun,4:
-L_4:
 NOP:

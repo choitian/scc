@@ -117,7 +117,7 @@ struct REG* X86_REG::get_reg()
 }
 struct REG* X86_REG::get_reg(std::string name)
 {
-	struct REG* r;
+	struct REG* r = NULL;
 	bool find=false;
 	for(std::list<struct REG*>::iterator it=this->reg_list.begin();it!=reg_list.end();it++)
 	{

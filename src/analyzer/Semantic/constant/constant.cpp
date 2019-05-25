@@ -310,7 +310,7 @@ bool mul_will_overflow_max(const TYPE left, const TYPE right)
 	const TYPE& type_Max = std::numeric_limits<TYPE>::max();
 	if(left < 0 && right <0 )
 	{
-		return type_Max / (-right) < (-left);
+		return type_Max / (-(int)right) < (-(int)left);
 	}else
 	{
 		return type_Max / right < left;
@@ -393,7 +393,7 @@ struct CONST* IC_NEG::constant_fold(struct CONST* fst)
 		fst->value.int32 =-fst->value.int32;	
 	}else if(target=="uint32")
 	{
-		fst->value.uint32 =-fst->value.uint32;	
+		fst->value.uint32 =-(int)(fst->value.uint32);	
 	}else if(target=="float32")
 	{
 		fst->value.float32 =-fst->value.float32;		

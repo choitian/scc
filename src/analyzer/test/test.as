@@ -10,9 +10,12 @@ _gs_0	DB	'%d',0aH,00H	;%d\n
 _DATA  ENDS
 PUBLIC	_fun
 _TEXT	SEGMENT
-_i_3 = 8 	;size: 4
+_i_3 = 20 	;size: 4
 _fun   PROC
 push ebp
+push ebx
+push esi
+push edi
 mov ebp,esp
 sub esp,0
 ;param [i]
@@ -26,32 +29,27 @@ call _printf
 add esp,8
 ;NOP
 mov esp,ebp
+pop edi
+pop esi
+pop ebx
 pop ebp
 ret 0
 _fun   ENDP
 _TEXT	ENDS
 PUBLIC	_maim
 _TEXT	SEGMENT
-_i_7 = -4 	;size: 4
-_f_8 = -8 	;size: 4
 _maim   PROC
 push ebp
+push ebx
+push esi
+push edi
 mov ebp,esp
-sub esp,8
-;param 1
-mov ebx,1
-push ebx
-;t_1 = call fun,4
-call _fun
-add esp,4
-;param 2
-mov ebx,2
-push ebx
-;t_2 = call fun,4
-call _fun
-add esp,4
+sub esp,0
 ;NOP
 mov esp,ebp
+pop edi
+pop esi
+pop ebx
 pop ebp
 ret 0
 _maim   ENDP

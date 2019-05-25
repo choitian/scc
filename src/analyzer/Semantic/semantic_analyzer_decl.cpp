@@ -404,10 +404,10 @@ void DECLARATION_TYPE::check(bool need_new_tag)
 	std::string sign;
 	std::string length;
 	std::string sclass;
-	struct TYPE_STRUCT *type_struct;
-	struct TYPE_UNION *type_union;
-	struct TYPE_ENUM *type_enum;
-	struct TYPE *type_of_typedef_name;
+	struct TYPE_STRUCT *type_struct = NULL;
+	struct TYPE_UNION *type_union = NULL;
+	struct TYPE_ENUM *type_enum = NULL;
+	struct TYPE *type_of_typedef_name = NULL;
 	bool see_const=false;
 	bool see_volatile=false;
 //get specifier_list information

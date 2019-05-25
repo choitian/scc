@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <Cstdlib> 
 #include <Cstdio> 
 #include <Cstring>
@@ -12,9 +13,9 @@
 struct ENVIRONMENT SCC_ENV;
 void setup_ENVIRONMENT(std::string input_file)
 {
-	static char* debug_ext="___DEBUG.txt";
-	static char* ic_ext="___IC.txt";
-	static char* asm_ext=".as";
+	static const char* debug_ext="___DEBUG.txt";
+	static const char* ic_ext="___IC.txt";
+	static const char* asm_ext=".as";
 	SCC_ENV.DFA_table="env\\DFA_state.txt";
 	SCC_ENV.LALR_table="env\\LALR_table.txt";
 	SCC_ENV.input_file=input_file;
@@ -64,7 +65,7 @@ int main(int argc, char *argv[])
 		setup_ENVIRONMENT(argv[1]);
 	}else
 	{
-		char* main_file=__FILE__;
+		const char* main_file=__FILE__;
 		std::string CurrentDirectory;
 		CurrentDirectory.assign(main_file,strlen(main_file)-8);
 		SCC_MSG("Set CurrentDirectory to %s\n\n",CurrentDirectory.c_str());

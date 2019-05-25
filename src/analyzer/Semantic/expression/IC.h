@@ -54,8 +54,8 @@ struct CONST:public ADDRESS
 	union CONST_VALUE value;
 	bool is_CONST() {return true; }
 	void cast_to(struct TYPE* type);
-	bool CONST::is_zero();
-	bool CONST::is_one();
+	bool is_zero();
+	bool is_one();
 	int as_int32();
 	unsigned int as_uint32();
 	static struct CONST* constant_expression_2_const(struct exp* expr);

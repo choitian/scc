@@ -19,10 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\parser\LALR_Generator\LALR_Generator.cpp" />
-    <ClCompile Include="src\parser\lib\common.cpp" />
-    <ClCompile Include="src\parser\main.cpp" />
-    <ClCompile Include="src\parser\regular_expression\regular_expression.cpp" />
+    <ClCompile Include="src\analyzer\lib\common.cpp" />
+    <ClCompile Include="src\analyzer\main.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\constant\constant.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\IC.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_address.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_arithmetic.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_assignment.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_logic.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\syntax_tree_exp.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\register.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\translate.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\translate_address.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\translate_instruction.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer_decl.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer_decl_initialization.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer_stmt.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\Symbol_Table\identifier.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\Symbol_Table\scope.cpp" />
+    <ClCompile Include="src\analyzer\Semantic\Symbol_Table\type.cpp" />
+    <ClCompile Include="src\analyzer\Syntax_Parser\Syntax_Parser.cpp" />
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_builder.cpp" />
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler.cpp" />
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler_decl.cpp" />
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler_exp.cpp" />
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler_stmt.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

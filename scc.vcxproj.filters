@@ -15,16 +15,85 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\parser\LALR_Generator\LALR_Generator.cpp">
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\register.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\parser\main.cpp">
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\translate_instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\parser\regular_expression\regular_expression.cpp">
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\translate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\parser\lib\common.cpp">
+    <ClCompile Include="src\analyzer\lib\common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\translate\translate_address.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\Symbol_Table\identifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer_decl_initialization.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer_decl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\IC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_arithmetic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\constant\constant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_assignment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\syntax_tree_exp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_address.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\Symbol_Table\type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Syntax_Parser\Syntax_Parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler_decl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\semantic_analyzer_stmt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\Symbol_Table\scope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Semantic\expression\semantic_analyzer_exp_logic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler_exp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler_stmt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_builder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\analyzer\Syntax_Parser\syntax_tree_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
